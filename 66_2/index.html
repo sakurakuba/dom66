@@ -1,0 +1,40 @@
+<include >
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Countries</h1>
+
+<div id="container">
+    <span id="country"></span>
+</div>
+
+<script type="application/javascript">
+
+    let el = document.getElementById("country")
+
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function(){
+        let data = JSON.parse(this.response);
+        for (let i=0;i<data.length;i++) {
+            console.log(data[i].name.official)
+            let b = document.createElement("p")
+            let c = document.createElement("a")
+            c.href = `./country.html?name=${data[i].name.common}`
+            c.innerText = data[i].name.official
+            b.appendChild(c)
+            el.appendChild(b)
+        }
+
+    };
+
+    xhr.open('GET', 'https://restcountries.com/v3.1/all');
+    xhr.send()
+
+</script>
+</body>
+</html>
+

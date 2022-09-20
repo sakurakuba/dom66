@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 id="name">Country</h1>
+
+<div id="container">
+    <span id="details">
+        <p id="ofName"></p>
+        <p id="capital"></p>
+        <p id="currency"></p>
+        <p id="borders"></p>
+    </span>
+</div>
+
+<script type="application/javascript">
+
+    let urlParams = new URLSearchParams(window.location.search);
+    let param = urlParams.get('name');
+    console.log(param)
+
+    let h = document.getElementById("name")
+    h.innerText = param;
+
+    let el = document.getElementById("details")
+    let ofName = document.getElementById("ofName")
+    let capital = document.getElementById("capital")
+    let currency = document.getElementById("currency")
+    let borders = document.getElementById("borders")
+    borders.innerText = 'Borders: '
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onload = function(){
+        let data = JSON.parse(this.response);
+        console.log(data)
+
+        ofName.innerText = `Official name: ${data[0].name.official}`
+        capital.innerText = `Capital: ${data[0].capital}`
+        currency.innerText = `Currency code: ${[Object.keys(data[0].currencies)[0]]}`
+
+
+        for (let el of data[0].borders) {
+            let b = document.createElement("p")
+            b.innerText = `${el}`
+            borders.appendChild(b)
+        }
+
+    };
+
+    xhr.open('GET', `https://restcountries.com/v3.1/name/${param}?fields=name,capital,currencies,borders`);
+    xhr.send()
+
+
+
+
+   
+
+</script>
+</body>
+</html>
+

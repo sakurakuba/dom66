@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #my-popup{
+            Width: 200px;
+            Height: 100px;
+            Background: gray;
+            Box-sizing: border-box; /* for inside padding */
+            Padding: 10px;
+        
+            /* for center */
+            Position:absolute;
+            top:50%;
+            left:50%;
+            Transform: translate(-50%,-50%);
+        
+            /* for hider */
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<h1>See console</h1>
+
+<div id="container">
+    <input id="add-item-btn" type="button" value="+">
+</div>
+
+<div id="my-popup">
+	<button id=”close-bnt”>X</button>
+	Time to take a break!
+</div>
+
+
+<script type="application/javascript">
+    
+    let button = document.getElementById("container")
+    let my_popup = document.getElementById("my-popup")
+    let timerID
+
+    function showPopUp(){
+        my_popup.style.display="block";
+        timerID = setTimeout(ClosePopUp, 5000);
+    }
+
+    function ClosePopUp(){
+        my_popup.style.display="none";
+        clearTimeout(timerID)
+    }
+
+   
+
+    button.addEventListener("click", showPopUp);
+    my_popup.addEventListener("click", ClosePopUp)
+    
+    
+</script>
+</body>
+</html>
+
